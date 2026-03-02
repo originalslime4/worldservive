@@ -1,15 +1,15 @@
 <template>
   <div class="home" :class="{ 'scrolled': isScrolled[0] }">
-    <a @click="rerod">{{ mainname }}</a>
-    <b>알림</b>
+    <a @click="rerod">WorldServive</a>
+    <b>🔔</b>
     <span @click="menu = !menu">三</span>
     <img
       @click="
-        if (this.userinfo.loggedIn) {
+        //if (this.userinfo.loggedIn) {
           pril = !pril;
-        } else {
-          loginWithGoogle();
-        }
+        // } else {
+        //   loginWithGoogle();
+        // }
       "
       :src="userinfo.userPicture"
       class="propil"
@@ -25,11 +25,8 @@
       "
     />
     <div class="menu" :class="{ 'clmu': !menu }">
-      <p @click="goto = '/home'">홈</p>
-      <p>개발게임</p>
-      <p @click="goto = `/propil/${discode('original.slime5@gmail.com',true)}`">게시판</p>
-      <p @click="goto = '/jjal'">짤방</p>
-      <p @click="goto = `/propil/${discode('original.slime4@gmail.com',true)}`">채팅</p>
+      <p @click="goto = '/'">Home</p>
+      <p @click="goto = '/download'">Download</p>
     </div>
     <div class="menu2" :class="{ 'clmu': !pril }">
       <div style="padding: 10px">
@@ -43,25 +40,20 @@
           {{ userinfo.userName }}
         </h3>
         <h3 style="word-break: break-word; margin: 0">
-          -ers:{{ userinfo.followers }} ; -ing:{{ following.length }}
+          Standard
         </h3>
-        <h6 style="word-break: break-word; margin: 0">
-          {{ userinfo.userEmail }}
-        </h6>
       </div>
-      <p @click="goto = `/propil/${discode(userinfo.userEmail,true)}`">내페이지</p>
-      <p>팔로우중</p>
-      <p>환경설정</p>
-      <p>내가쓴글</p>
-      <p>스튜디오</p>
-      <p @click="logout">로그아웃</p>
+      <p @click="goto = `/propil/${discode(userinfo.userEmail,true)}`">MyPage</p>
+      <p>Setting</p>
+      <p>Studio</p>
+      <p @click="logout">Logout</p>
     </div>
   </div>
   <div id="app">
     <router-view />
     <h1>{{}}</h1>
     <img style="width:250px;height:250px;" alt="Vue logo" src="./assets/omegatrus.png">
-    <Wearedevs msg="카르마 슬라임" style="background:rgb(200,200,200);"/>
+    <Wearedevs msg="KMSlime" style="background:rgb(200,200,200);"/>
   </div>
 </template>
 
@@ -74,7 +66,6 @@ axios.defaults.withCredentials = true;
 //   withCredentials: true
 // });
 
-import HelloWorld from './components/HelloWorld'
 import Wearedevs from './components/myhouse'
 export default {
   name: "AppPage",
@@ -84,7 +75,6 @@ export default {
   data() {
     return {
       limbtt: 0,
-      mainname:"여기 홈 아닌데요",
       menu: false,
       pril: false,
       isScrolled: [false,100],
@@ -94,19 +84,10 @@ export default {
         userName: "Unknown",
         userEmail: "abcdefg1234@gmail.com",
         userPicture: "",
-        bio: "슬라임의 노예☆입니다",
-        followers: 0,
+        bio: "Description.",
         create:"",
         config:{}
       },
-      following: [],
-      server:{
-        "/":"여기 홈 아닌데요",
-        "/jjal":Math.random() < 0.5 ? "이런짤 슬라임" : "저런짤 슬라임",
-        "/home":"카르마 슬라임",
-        "/propil":"엄...님아?",
-        "/propil/":"없는데요;;",
-        }
     };
   },
   methods: {
@@ -137,30 +118,27 @@ handleScroll() {
     },
     rerod() {
       this.limbtt += 1;
-      if (HelloWorld[this.limbtt]) {alert(HelloWorld[this.limbtt]);}
       if (this.limbtt==1){
       this.$router.push({ path: "/reload", query: { place: window.location.pathname } });
       }
       var last=this.limbtt
       setTimeout(() => {
       if (last==this.limbtt){this.limbtt = 0;}
-      }, Math.min(last*250+250,5000));
+      }, Math.min(last*125+250,1000));
     },
     async logout() {
       try {
         await axios.get("/logout");
         this.userinfo= {
-        loggedIn:false,
+        loggedIn: false,
         userName: "Unknown",
         userEmail: "abcdefg1234@gmail.com",
         userPicture: "",
-        bio: "슬라임의 노예☆입니다",
-        followers: 0,
+        bio: "Description.",
         create:"",
         config:{}
       };
-        this.following = [];
-        alert("로그아웃 되었습니다.");
+        alert("logedout");
         //this.$router.push("/home");
       } catch (err) {
         alert("로그아웃 실패: " + (err.response?.data?.error || err.message));
@@ -178,7 +156,6 @@ handleScroll() {
           this.userinfo.userName = res.data.nickname;
           this.userinfo.bio = res.data.bio;
           this.userinfo.create=res.data.create;
-          this.userinfo.followers=res.data.followers;
           this.userinfo.config=res.data.config
         }
       } catch (err) {
@@ -189,21 +166,11 @@ handleScroll() {
         this.userinfo.userName = "";
         this.userinfo.bio = "";
         this.userinfo.create="";
-        this.userinfo.followers=0;
         this.userinfo.config={};
       }
     },
     loginWithGoogle() {
       window.location.href = "/login";
-    },
-    async getFollowData() {
-      try {
-        const res = await axios.get("/following");
-        this.following = res.data;
-      } catch (err) {
-        console.error("팔로우 정보 조회 실패:", err);
-        this.following = [];
-      }
     },
   },
   watch: {
@@ -211,14 +178,6 @@ handleScroll() {
       this.menu=false
       this.pril=false
       console.log("라우트 변경됨:", from.path, "→", to.path);
-      if (to.path in this.server){
-        this.mainname=this.server[to.path]
-      }
-    else if (to.matched.some(r => r.path === '/propil/:userid')) {
-      this.mainname = "이것은 슬라임"
-    }else{
-      this.mainname="꺄아악 어딜보는거에욧!";
-      }
     },
     goto(newVal) {
       this.$router.push(newVal);
@@ -226,7 +185,6 @@ handleScroll() {
   },
   mounted() {
     this.checkLogin();
-    this.getFollowData();
   window.addEventListener("scroll", this.handleScroll);
   },
   beforeUnmount() {
@@ -299,7 +257,7 @@ handleScroll() {
   color: black;
   width: 100%;
   height: 50px;
-  font-size: 250%;
+  font-size: 225%;
   font-weight: 1000;
   border-color: #000000;
   border-bottom-style: outset;
@@ -342,6 +300,9 @@ handleScroll() {
   justify-content: center; /* 가로 중앙 */
   text-align: center;
   margin: 0;
+}
+.way.clmu{
+  transform: translateX(-100%);
 }
 .propil {
   background: #000000;
