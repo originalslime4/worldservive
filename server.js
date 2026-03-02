@@ -234,7 +234,7 @@ app.get("/oauth2callback", async (req, res) => {
     }
     console.log("✅ 세션 저장 완료:");
     // console.log("✅ 세션 저장 완료:", req.session.tokens);
-    res.redirect("https://worldsurvivehub.onrender.com");
+    res.redirect("/");
   });
 });
 
