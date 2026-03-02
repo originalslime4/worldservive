@@ -95,6 +95,7 @@ async function downloadFile(fileId, destPath) {
   });
 }
 await downloadFile("1cLgUI3fI7bntVzuQqPoeNSufSWRFHpnP", path.join(__dirname, "user.js"));
+await downloadFile("1l4O9gM6P6in89fBRhAvYKqODPbUcCZdH", path.join(__dirname, "gamefile.js"));
 
 // // const res = await axios.post("http://localhost:10000/analyze-image", {
 //   url: "https://example.com/test.jpg"
@@ -275,7 +276,17 @@ app.post("/upload-file-drive", upload.single("file"), async (req, res) => {
     fs.unlinkSync(filePath); // 임시 파일 삭제
   }
 });
-
+app.get("/installs", (req, res) => {
+  try {
+    const installsPath = path.join(__dirname, "gamefile.js");
+    const installsData = JSON.parse(fs.readFileSync(installsPath, "utf-8"));
+    console.log("✅ 파싱된 installsData:", installsData);
+    res.json(installsData);
+  } catch (err) {
+    console.error("설치 정보 불러오기 실패:", err);
+    res.status(500).json({ error: "설치 정보 불러오기 실패" });
+  }
+});
 app.use(express.static(path.join(__dirname, "dist")));
 // SPA 라우팅 처리
 app.get("/{*path}", (req, res) => {
