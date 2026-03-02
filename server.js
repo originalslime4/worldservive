@@ -70,28 +70,28 @@ async function saveFileToDrive(filePath, fileId) {
 // oauth2Client.setCredentials({
 //   refresh_token: process.env.GOOGLE_REFRESH_TOKEN
 // });
-await oauth2Client.getAccessToken();
-const drive = google.drive({ version: "v3", auth: oauth2Client });
-async function downloadFile(fileId, destPath) {
-  const dest = fs.createWriteStream(destPath);
-  const res = await drive.files.get(
-    { fileId, alt: "media" },
-    { responseType: "stream" }
-  );
-  return new Promise((resolve, reject) => {
-    res.data
-      .on("end", () => {
-        console.log("✅ 다운로드 완료:", destPath);
-        resolve();
-      })
-      .on("error", (err) => {
-        console.error("❌ 다운로드 실패:", err);
-        reject(err);
-      })
-      .pipe(dest);
-  });
-}
-await downloadFile("1doHeqgBaHQhRIeAFn6KJkarR2EGFyDSB", path.join(__dirname, "user.js"));
+// await oauth2Client.getAccessToken();
+// const drive = google.drive({ version: "v3", auth: oauth2Client });
+// async function downloadFile(fileId, destPath) {
+//   const dest = fs.createWriteStream(destPath);
+//   const res = await drive.files.get(
+//     { fileId, alt: "media" },
+//     { responseType: "stream" }
+//   );
+//   return new Promise((resolve, reject) => {
+//     res.data
+//       .on("end", () => {
+//         console.log("✅ 다운로드 완료:", destPath);
+//         resolve();
+//       })
+//       .on("error", (err) => {
+//         console.error("❌ 다운로드 실패:", err);
+//         reject(err);
+//       })
+//       .pipe(dest);
+//   });
+// }
+// await downloadFile("1doHeqgBaHQhRIeAFn6KJkarR2EGFyDSB", path.join(__dirname, "user.js"));
 
 // // const res = await axios.post("http://localhost:10000/analyze-image", {
 //   url: "https://example.com/test.jpg"
