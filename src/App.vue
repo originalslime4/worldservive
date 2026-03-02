@@ -310,6 +310,6 @@ handleScroll() {
   padding: 5px;
 }
 </style>
-// git add .
-// git commit -m "버그"
-// git push origin main 
+<!-- git add .
+git commit -m "버그"
+git push origin main  -->
