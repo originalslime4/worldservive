@@ -73,7 +73,6 @@ const visclient = new vision.ImageAnnotatorClient({
 oauth2Client.setCredentials({
   refresh_token: process.env.GOOGLE_REFRESH_TOKEN
 });
-//accespjt=await oauth2Client.getAccessToken();
 const drive = google.drive({ version: "v3", auth: oauth2Client });
 async function downloadFile(fileId, destPath) {
   const dest = fs.createWriteStream(destPath);
@@ -287,6 +286,37 @@ app.get("/installs", (req, res) => {
     res.status(500).json({ error: "설치 정보 불러오기 실패" });
   }
 });
+app.get("/gamezip", async (req, res) => {
+  try {
+  const fileId = req.query.file;
+  if (!fileId) {
+      return res.status(400).send("file query parameter required");
+    }
+auth2Client.setCredentials({
+  refresh_token: process.env.GOOGLE_REFRESH_TOKEN
+});
+const drive = google.drive({ version: "v3", auth: oauth2Client });
+  const driveRes = await drive.files.get(
+      { fileId: fileId, alt: "media" },
+      { responseType: "stream" }
+    );
+res.setHeader("Content-Type", "application/zip");
+    res.setHeader("Content-Disposition", `attachment; filename="${fileId}.zip"`);
+driveRes.data
+      .on("end", () => {
+        console.log("Download finished");
+      })
+      .on("error", (err) => {
+        console.error("Error downloading file:", err);
+        res.status(500).send("Error downloading file");
+      })
+      .pipe(res);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
 app.use(express.static(path.join(__dirname, "dist")));
 // SPA 라우팅 처리
 app.get("/{*path}", (req, res) => {
