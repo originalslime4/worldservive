@@ -104,7 +104,7 @@ app.get("/login", (req, res) => {
     scope: [
       "https://www.googleapis.com/auth/userinfo.profile",
       "https://www.googleapis.com/auth/userinfo.email",
-      "https://www.googleapis.com/auth/drive"
+      "https://www.googleapis.com/auth/drive.file"
     ]
     //drive.file
   });
@@ -168,6 +168,7 @@ app.get("/auth/check", async (req, res) => {
         config: {}
       };
       usersCollection.push(user);
+      console.log("등록중");
       fs.writeFileSync(userPath, JSON.stringify(usersCollection, null, 2));
       await saveFileToDrive(userPath, "1cLgUI3fI7bntVzuQqPoeNSufSWRFHpnP");
       console.log("✅ 새 사용자 등록:", email);
