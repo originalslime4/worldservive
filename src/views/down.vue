@@ -5,7 +5,7 @@
 
 <script>
 import axios from "axios";
-axios.defaults.baseURL = "https://worldservive.onrender.com";
+axios.defaults.baseURL = "https://worldsurvive.onrender.com";
 axios.defaults.withCredentials = true;
 // const api = axios.create({
 //   baseURL: "/",

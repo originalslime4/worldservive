@@ -1,6 +1,6 @@
 <template>
   <div class="home" :class="{ 'scrolled': isScrolled[0] }">
-    <a @click="rerod">WorldServive</a>
+    <a @click="rerod">WorldSurvive</a>
     <b>🔔</b>
     <span @click="menu = !menu">三</span>
     <img
@@ -59,7 +59,7 @@
 
 <script>
 import axios from "axios";
-axios.defaults.baseURL = "https://worldservive.onrender.com";
+axios.defaults.baseURL = "https://worldsurvive.onrender.com";
 axios.defaults.withCredentials = true;
 // const api = axios.create({
 //   baseURL: "/",

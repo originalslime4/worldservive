@@ -27,7 +27,7 @@ app.use(session({
   }
 }));
 app.use(cors({
-  origin: "https://worldservive.onrender.com", // 또는 Render 배포 주소
+  origin: "https://worldsurvive.onrender.com", // 또는 Render 배포 주소
   credentials: true
 }));
 app.use(express.json());
