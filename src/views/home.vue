@@ -42,7 +42,7 @@
 
 <script>
 import axios from "axios";
-axios.defaults.baseURL = "https://kmslime.kr";
+axios.defaults.baseURL = "https://worldservive.onrender.com";
 axios.defaults.withCredentials = true;
 // const api = axios.create({
 //   baseURL: "/",

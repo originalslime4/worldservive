@@ -27,7 +27,7 @@ app.use(session({
   }
 }));
 app.use(cors({
-  origin: "https://kmslime.kr", // 또는 Render 배포 주소
+  origin: "https://worldservive.onrender.com", // 또는 Render 배포 주소
   credentials: true
 }));
 app.use(express.json());
@@ -63,10 +63,10 @@ async function saveFileToDrive(filePath, fileId) {
   });
   console.log("✅ Google Drive 저장 완료:", res.data.id);
 }
-// const visclient = new vision.ImageAnnotatorClient({
-//   credentials: JSON.parse(process.env.GOOGLE_CLOUD_KEY)
-// });
-// //파일들
+const visclient = new vision.ImageAnnotatorClient({
+  credentials: JSON.parse(process.env.GOOGLE_CLOUD_KEY)
+});
+//파일들
 // oauth2Client.setCredentials({
 //   refresh_token: process.env.GOOGLE_REFRESH_TOKEN
 // });
@@ -100,6 +100,7 @@ async function saveFileToDrive(filePath, fileId) {
 app.get("/login", (req, res) => {
   const authUrl = oauth2Client.generateAuthUrl({
     access_type: "offline",
+    prompt: "consent",
     scope: [
       "https://www.googleapis.com/auth/userinfo.profile",
       "https://www.googleapis.com/auth/userinfo.email",
@@ -144,7 +145,7 @@ app.get("/userdata", async (req, res) => {
   }
 });
 app.get("/auth/check", async (req, res) => {
-  // console.log("세션 토큰:", req.session.tokens);
+  console.log("세션 토큰:", req.session.tokens);///////////////////////////////////
   if (!req.session.tokens) {
     return res.status(401).json({ loggedIn: false });
   }
