@@ -292,7 +292,7 @@ app.get("/gamezip", async (req, res) => {
   if (!fileId) {
       return res.status(400).send("file query parameter required");
     }
-auth2Client.setCredentials({
+oauth2Client.setCredentials({
   refresh_token: process.env.GOOGLE_REFRESH_TOKEN
 });
 const drive = google.drive({ version: "v3", auth: oauth2Client });
