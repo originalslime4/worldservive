@@ -91,7 +91,7 @@ async function downloadFile(fileId, destPath) {
       .pipe(dest);
   });
 }
-await downloadFile("1doHeqgBaHQhRIeAFn6KJkarR2EGFyDSB", path.join(__dirname, "user.js"));
+await downloadFile("1cLgUI3fI7bntVzuQqPoeNSufSWRFHpnP", path.join(__dirname, "user.js"));
 
 // // const res = await axios.post("http://localhost:10000/analyze-image", {
 //   url: "https://example.com/test.jpg"
@@ -145,7 +145,7 @@ app.get("/userdata", async (req, res) => {
   }
 });
 app.get("/auth/check", async (req, res) => {
-  console.log("세션 토큰:", req.session.tokens);///////////////////////////////////
+  //console.log("세션 토큰:", req.session.tokens);
   if (!req.session.tokens) {
     return res.status(401).json({ loggedIn: false });
   }
@@ -169,7 +169,7 @@ app.get("/auth/check", async (req, res) => {
       };
       usersCollection.push(user);
       fs.writeFileSync(userPath, JSON.stringify(usersCollection, null, 2));
-      await saveFileToDrive(userPath, "1doHeqgBaHQhRIeAFn6KJkarR2EGFyDSB");
+      await saveFileToDrive(userPath, "1cLgUI3fI7bntVzuQqPoeNSufSWRFHpnP");
       console.log("✅ 새 사용자 등록:", email);
     } else {
       console.log("🔎 기존 사용자 불러오기:", email);
@@ -210,7 +210,7 @@ app.put("/user", async (req, res) => {
       config
     };
     fs.writeFileSync(userPath, JSON.stringify(users, null, 2));
-    await saveFileToDrive(userPath, "1doHeqgBaHQhRIeAFn6KJkarR2EGFyDSB");
+    await saveFileToDrive(userPath, "1cLgUI3fI7bntVzuQqPoeNSufSWRFHpnP");
     res.json({ success: true });
   } catch (err) {
     console.error("사용자 정보 수정 실패:", err);
