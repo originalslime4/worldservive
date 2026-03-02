@@ -52,6 +52,9 @@ const oauth2Client = new google.auth.OAuth2(
   process.env.GOOGLE_REDIRECT_URI
 );
 async function saveFileToDrive(filePath, fileId) {
+oauth2Client.setCredentials({
+    refresh_token: process.env.GOOGLE_REFRESH_TOKEN
+  });
   const drive = google.drive({ version: "v3", auth: oauth2Client });
   const media = {
     mimeType: "application/json",
@@ -70,7 +73,7 @@ const visclient = new vision.ImageAnnotatorClient({
 oauth2Client.setCredentials({
   refresh_token: process.env.GOOGLE_REFRESH_TOKEN
 });
-await oauth2Client.getAccessToken();
+//accespjt=await oauth2Client.getAccessToken();
 const drive = google.drive({ version: "v3", auth: oauth2Client });
 async function downloadFile(fileId, destPath) {
   const dest = fs.createWriteStream(destPath);
@@ -168,7 +171,6 @@ app.get("/auth/check", async (req, res) => {
         config: {}
       };
       usersCollection.push(user);
-      console.log("등록중");
       fs.writeFileSync(userPath, JSON.stringify(usersCollection, null, 2));
       await saveFileToDrive(userPath, "1cLgUI3fI7bntVzuQqPoeNSufSWRFHpnP");
       console.log("✅ 새 사용자 등록:", email);
