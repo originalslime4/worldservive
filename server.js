@@ -140,7 +140,7 @@ app.get("/userdata", async (req, res) => {
       config: user.config
     });
   } catch (err) {
-    console.error("사용자 정보 가져오기 실패:", err);
+    console.error("사용자 정보 가져오기 실패_1:", err);
     res.status(500).json({ error: "서버 내부 오류", detail: err.message });
   }
 });
@@ -231,7 +231,7 @@ app.get("/oauth2callback", async (req, res) => {
     }
     console.log("✅ 세션 저장 완료:");
     // console.log("✅ 세션 저장 완료:", req.session.tokens);
-    res.redirect("/home");
+    res.redirect("/");
   });
 });
 
