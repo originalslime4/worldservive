@@ -5,11 +5,11 @@
     <span @click="menu = !menu">三</span>
     <img
       @click="
-        //if (this.userinfo.loggedIn) {
+        if (this.userinfo.loggedIn) {
           pril = !pril;
-        // } else {
-        //   loginWithGoogle();
-        // }
+        } else {
+          loginWithGoogle();
+        }
       "
       :src="userinfo.userPicture"
       class="propil"
