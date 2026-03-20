@@ -1,8 +1,9 @@
 <template>
   <p style="height: 37.5px;">KMS</p>
   <section class="section" style="flex-direction: row-reverse;">
+    <div style="width: 15%;"></div>
     <div class="text" style="flex: 1;padding: 20px;">
-      <h2 style="width: 750px;color: white;text-align: left;font-size: 50px;margin-bottom: 10px;">Go on an adventure!
+      <h2 style="width: 100%;color: white;text-align: left;font-size: 50px;margin-bottom: 10px;">Go on an adventure!
       </h2>
       <p style="color: white;text-align: left;font-size: 25px;margin-bottom: 20px;">Even if you have nothing, the world
         will light your path.</p>
@@ -15,8 +16,9 @@
     <div style="width: 15%;"></div>
   </section>
   <section class="section">
+    <div style="width: 15%;"></div>
     <div class="text" style="flex: 1;padding: 20px;">
-      <h2 style="width: 750px;color: white;text-align: right;font-size: 50px;margin-bottom: 10px;">Run or fight!</h2>
+      <h2 style="width: 100%;color: white;text-align: right;font-size: 50px;margin-bottom: 10px;">Run or fight!</h2>
       <p style="color: white;text-align: right;font-size: 25px;margin-bottom: 20px;">It cannot be guaranteed that all
         beings are safe.</p>
       <p style="color: white;text-align: right;font-size: 25px;margin-bottom: 20px;">Not even yourself.</p>
@@ -27,8 +29,9 @@
     <div style="width: 15%;"></div>
   </section>
   <section class="section" style="flex-direction: row-reverse;">
+    <div style="width: 15%;"></div>
     <div class="text" style="flex: 1;padding: 20px;">
-      <h2 style="width: 750px;color: white;text-align: left;font-size: 50px;margin-bottom: 10px;">Destroy and create!
+      <h2 style="width: 100%;color: white;text-align: left;font-size: 50px;margin-bottom: 10px;">Destroy and create!
       </h2>
       <p style="color: white;text-align: left;font-size: 25px;margin-bottom: 20px;">Make this world according to your
         thoughts</p>
@@ -101,7 +104,10 @@ export default {
 
 .image img {
   width: 100%;
-  max-height: 100%;
+  min-height: 100px;
+  min-width: 100px;
+  max-height: 400px;
+  max-width: 400px;
   object-fit: cover;
   border-radius: 10px;
   image-rendering: pixelated;
