@@ -1,5 +1,5 @@
 <template>
-  <p style="height: 37.5px;">KMS</p>
+  <p style="height: 37.5px;margin: 10px;">KMS</p>
   <section class="section" style="flex-direction: row-reverse;">
     <div style="width: 15%;"></div>
     <div class="text" style="flex: 1;padding: 20px;">
@@ -24,7 +24,7 @@
       <p style="color: white;text-align: right;font-size: 25px;margin-bottom: 20px;">Not even yourself.</p>
     </div>
     <div class="image">
-      <img src="../assets/earth.png" alt="서비스 이미지" />
+      <img src="../assets/anvil.png" alt="서비스 이미지" />
     </div>
     <div style="width: 15%;"></div>
   </section>
@@ -37,7 +37,7 @@
         thoughts</p>
     </div>
     <div class="image">
-      <img src="../assets/earth.png" alt="서비스 이미지" />
+      <img src="../assets/land.png" alt="서비스 이미지" />
     </div>
     <div style="width: 15%;"></div>
   </section>
@@ -73,7 +73,7 @@ export default {
     },
   },
   mounted() {
-
+    window.scrollTo(0, 0);
   },
 };
 </script>

@@ -3,18 +3,13 @@
     <a @click="rerod">WorldSurvive</a>
     <b>🔔</b>
     <span @click="menu = !menu">三</span>
-    <img
-      @click="
+    <img @click="
         if (this.userinfo.loggedIn) {
-          pril = !pril;
-        } else {
-          loginWithGoogle();
-        }
-      "
-      :src="userinfo.userPicture"
-      class="propil"
-      @error="handleImageError($event, 'prl')"
-      style="
+      pril = !pril;
+    } else {
+      loginWithGoogle();
+    }
+      " :src="userinfo.userPicture" class="propil" @error="handleImageError($event, 'prl')" style="
         object-fit: cover;
         height: 37.5px;
         width: 37.5px;
@@ -22,20 +17,15 @@
         top: 50%;
         right: 0;
         transform: translate(-20px, -50%);
-      "
-    />
+      " />
     <div class="menu" :class="{ 'clmu': !menu }">
       <p @click="goto = '/'">Home</p>
       <p @click="goto = '/download'">Download</p>
     </div>
     <div class="menu2" :class="{ 'clmu': !pril }">
       <div style="padding: 10px">
-        <img
-          :src="userinfo.userPicture"
-          class="propil"
-          @error="handleImageError($event, 'prl')"
-          style="object-fit: cover; width: 75px; height: 75px; margin: 0"
-        />
+        <img :src="userinfo.userPicture" class="propil" @error="handleImageError($event, 'prl')"
+          style="object-fit: cover; width: 75px; height: 75px; margin: 0" />
         <h3 style="word-break: break-word; margin: 0">
           {{ userinfo.userName }}
         </h3>
@@ -43,7 +33,7 @@
           Standard
         </h3>
       </div>
-      <p @click="goto = `/propil/${discode(userinfo.userEmail,true)}`">MyPage</p>
+      <p @click="goto = `/propil/${discode(userinfo.userEmail, true)}`">MyPage</p>
       <p>Setting</p>
       <p>Studio</p>
       <p @click="logout">Logout</p>
@@ -53,7 +43,7 @@
     <router-view />
     <h1>{{}}</h1>
     <img style="width:250px;height:250px;" alt="Vue logo" src="./assets/omegatrus.png">
-    <Wearedevs msg="KMSlime" style="background:rgb(200,200,200);"/>
+    <Wearedevs msg="KMSlime" style="background:rgb(200,200,200);" />
   </div>
 </template>
 
@@ -77,7 +67,7 @@ export default {
       limbtt: 0,
       menu: false,
       pril: false,
-      isScrolled: [false,100],
+      isScrolled: [false, 100],
       goto: "",
       userinfo: {
         loggedIn: false,
@@ -85,20 +75,20 @@ export default {
         userEmail: "abcdefg1234@gmail.com",
         userPicture: "",
         bio: "Description.",
-        create:"",
-        config:{}
+        create: "",
+        config: {}
       },
     };
   },
   methods: {
-  //   convertDriveLinkToThumbnail(originalUrl, size = 1000) {
-  //     const match = originalUrl.match(/(?:id=|\/d\/)([a-zA-Z0-9_-]{25,})/);
-  //     if (!match) return null;
+    //   convertDriveLinkToThumbnail(originalUrl, size = 1000) {
+    //     const match = originalUrl.match(/(?:id=|\/d\/)([a-zA-Z0-9_-]{25,})/);
+    //     if (!match) return null;
 
-  //     const fileId = match[1];
-  //     return `https://drive.google.com/thumbnail?id=${fileId}&sz=w${size}`;
-  //   },
-discode(str, encode) {
+    //     const fileId = match[1];
+    //     return `https://drive.google.com/thumbnail?id=${fileId}&sz=w${size}`;
+    //   },
+    discode(str, encode) {
       if (encode) {
         return btoa(unescape(encodeURIComponent(str)))
       } else {
@@ -112,32 +102,32 @@ discode(str, encode) {
         e.target.src = require("./assets/propil.jpg");
       }
     },
-handleScroll() { 
+    handleScroll() {
+      this.isScrolled[1] = Math.min(Math.max(this.isScrolled[1], window.scrollY - 100), window.scrollY + 100);
       this.isScrolled[0] = window.scrollY >= this.isScrolled[1];
-      this.isScrolled[1]=Math.min(Math.max(this.isScrolled[1], window.scrollY-100), window.scrollY+100);
     },
     rerod() {
       this.limbtt += 1;
-      if (this.limbtt==1){
-      this.$router.push({ path: "/reload", query: { place: window.location.pathname } });
+      if (this.limbtt == 1) {
+        this.$router.push({ path: "/reload", query: { place: window.location.pathname } });
       }
-      var last=this.limbtt
+      var last = this.limbtt
       setTimeout(() => {
-      if (last==this.limbtt){this.limbtt = 0;}
-      }, Math.min(last*125+250,1000));
+        if (last == this.limbtt) { this.limbtt = 0; }
+      }, Math.min(last * 125 + 250, 1000));
     },
     async logout() {
       try {
         await axios.get("/logout");
-        this.userinfo= {
-        loggedIn: false,
-        userName: "Unknown",
-        userEmail: "abcdefg1234@gmail.com",
-        userPicture: "",
-        bio: "Description.",
-        create:"",
-        config:{}
-      };
+        this.userinfo = {
+          loggedIn: false,
+          userName: "Unknown",
+          userEmail: "abcdefg1234@gmail.com",
+          userPicture: "",
+          bio: "Description.",
+          create: "",
+          config: {}
+        };
         alert("logedout");
         //this.$router.push("/home");
       } catch (err) {
@@ -155,8 +145,8 @@ handleScroll() {
           this.userinfo.userPicture = res.data.picture;
           this.userinfo.userName = res.data.nickname;
           this.userinfo.bio = res.data.bio;
-          this.userinfo.create=res.data.create;
-          this.userinfo.config=res.data.config
+          this.userinfo.create = res.data.create;
+          this.userinfo.config = res.data.config
         }
       } catch (err) {
         console.error("로그인 확인 실패:", err);
@@ -165,8 +155,8 @@ handleScroll() {
         this.userinfo.userPicture = "";
         this.userinfo.userName = "";
         this.userinfo.bio = "";
-        this.userinfo.create="";
-        this.userinfo.config={};
+        this.userinfo.create = "";
+        this.userinfo.config = {};
       }
     },
     loginWithGoogle() {
@@ -175,8 +165,8 @@ handleScroll() {
   },
   watch: {
     $route(to, from) {
-      this.menu=false
-      this.pril=false
+      this.menu = false
+      this.pril = false
       console.log("라우트 변경됨:", from.path, "→", to.path);
     },
     goto(newVal) {
@@ -185,7 +175,7 @@ handleScroll() {
   },
   mounted() {
     this.checkLogin();
-  window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener("scroll", this.handleScroll);
   },
   beforeUnmount() {
     window.removeEventListener("scroll", this.handleScroll);
@@ -205,6 +195,7 @@ handleScroll() {
   color: #2c3e50;
   background-color: rgb(0, 0, 64);
 }
+
 .home {
   right: 0;
   top: 0;
@@ -214,14 +205,18 @@ handleScroll() {
   position: fixed;
   transition: transform 0.1s ease;
 }
+
 .home.scrolled {
-  transform: translateY(-100%); /* 위로 올리기 */
+  transform: translateY(-100%);
+  /* 위로 올리기 */
 }
+
 .home a {
   color: black;
   font-size: 37.5px;
   font-weight: 1000;
 }
+
 .home b {
   background: #ffffff;
   color: black;
@@ -233,6 +228,7 @@ handleScroll() {
   border-radius: 10px;
   padding: 5px;
 }
+
 .home span {
   color: black;
   font-size: 37.5px;
@@ -242,6 +238,7 @@ handleScroll() {
   transform: translate(25px, -50%);
   font-weight: 1000;
 }
+
 .menu {
   background: rgb(0, 175, 0);
   position: absolute;
@@ -250,9 +247,11 @@ handleScroll() {
   height: 1000px;
   transition: transform 0.1s ease;
 }
-.menu.clmu{
+
+.menu.clmu {
   transform: translateX(-100%);
 }
+
 .menu p {
   background: rgb(0, 175, 0);
   color: black;
@@ -265,11 +264,14 @@ handleScroll() {
   border-top-style: inset;
   left: 0px;
   display: flex;
-  align-items: center; /* 세로 중앙 */
-  justify-content: center; /* 가로 중앙 */
+  align-items: center;
+  /* 세로 중앙 */
+  justify-content: center;
+  /* 가로 중앙 */
   text-align: center;
   margin: 0;
 }
+
 .menu2 {
   background: rgb(255, 255, 255);
   border-radius: 10px;
@@ -281,9 +283,11 @@ handleScroll() {
   height: 500px;
   transition: transform 0.1s ease;
 }
-.menu2.clmu{
+
+.menu2.clmu {
   transform: translateX(100%);
 }
+
 .menu2 p {
   background: rgb(255, 255, 255);
   color: black;
@@ -297,14 +301,18 @@ handleScroll() {
   border-radius: 10px;
   left: 0px;
   display: flex;
-  align-items: center; /* 세로 중앙 */
-  justify-content: center; /* 가로 중앙 */
+  align-items: center;
+  /* 세로 중앙 */
+  justify-content: center;
+  /* 가로 중앙 */
   text-align: center;
   margin: 0;
 }
-.way.clmu{
+
+.way.clmu {
   transform: translateX(-100%);
 }
+
 .propil {
   background: #000000;
   border-radius: 100%;

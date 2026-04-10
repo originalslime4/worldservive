@@ -1,32 +1,35 @@
 <template>
+  <p style="height: 32.5px;margin: 10px;">KMS</p>
   <div class="center-container">
-    <!-- 사진 -->
-    <img src="@/assets/example.png" alt="WorldSurvive Logo" class="main-image" />
+    <img src="@/assets/example.png" alt="WorldSurvive Logo" class="main-image" :style="{ objectPosition: '0 '+isScrolled/2+'px' }"/>
 
-    <!-- 대빵 큰 글자 -->
     <h1 style="color: #ffffff;font-size: 75px;font-weight: bold;margin: 20px 0;">WorldSurvive For Windows</h1>
-
-    <!-- 버튼 -->
-    <button class="main-button" @click="downloadLauncher">
-      Install Launcher
-    </button>
-    <p style="color: #c0c0c0;">worldsurvive install.exe (44.4MB)</p>
-
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <div style="width: 100px;"></div>
+      <div style="padding-right: 100px;">
+        <button class="main-button" @click="downloadLauncher">
+          Install Launcher
+        </button>
+        <p style="color: #c0c0c0;">worldsurvive install.exe (44.4MB)</p>
+      </div>
+      <a href="https://www.alldonation.co.kr/@ilikefurry" target="_blank" style="width: 0px;">
+        <button class="main-button" style="background-color: #ffcc00; color: #000;">
+          Donate
+        </button>
+      </a>
+    </div>
     <div class="white-box">
       <p style="color: #c0c0c0;font-size: 24px; margin: 0;">Please give me feedback.</p>
     </div>
 
-    <!-- 큰 글자 -->
     <h2 style="color: #c0c0c0;font-size: 50px;margin: 15px 0;">How to play?</h2>
 
-    <!-- 다른 Vue로 가는 하이퍼텍스트 -->
     <router-link to="/library" class="link-text">
       Go to library
     </router-link>
     <h2 style="color: #c0c0c0;font-size: 25px;margin: 15px 0;width: 50%;">Welcome to the fantasy world. Here, throw away
       the stereotypes you knew, learn how to survive, meet friends, and become stronger!</h2>
-    <!-- 작은 글자 -->
-    <p class="small-text">재배포하지 마세욧!</p>
+    <p class="small-text">by KMSlime</p>
   </div>
 </template>
 
@@ -47,14 +50,17 @@ export default {
   },
   data() {
     return {
-      goto: ""
+      goto: "",
+      isScrolled:0,
     };
   },
   methods: {
     downloadLauncher() {
       window.open("/worldsurvive install.exe");
-    }
-
+    },
+    handleScroll() {
+      this.isScrolled=window.scrollY
+    },
   },
   watch: {
     goto(newVal) {
@@ -62,7 +68,11 @@ export default {
     },
   },
   mounted() {
-
+    window.addEventListener("scroll", this.handleScroll);
+    window.scrollTo({ top: 325, behavior: "smooth" });
+  },
+  beforeUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
   },
 };
 </script>
@@ -89,9 +99,7 @@ export default {
 
 .main-image {
   width: 100%;
-  aspect-ratio: 7.5;
   object-fit: cover;
-  object-position: top;
   margin-bottom: 20px;
 }
 
